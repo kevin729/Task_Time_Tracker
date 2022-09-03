@@ -1,0 +1,59 @@
+html, body {
+  width:100%;
+  height:100%;
+  background:lightgrey;
+
+}
+
+.sprintTableWrapperHeader {
+  display:inline-block;
+  position:absolute;
+  left:165px;
+  top:88px;
+}
+
+.sprintTableHeader {
+}
+
+
+.sprintTableWrapper {
+  display:inline-block;
+
+  position:absolute;
+  left:165px;
+  top:120px;
+}
+
+.sprintTable {
+  width:90%;
+}
+
+th, td, tr {
+  width:700px;
+  border: 5px solid black;
+}
+
+.feature {
+  display:block;
+  width:200px;
+  height:200px;
+  border:3px solid black;
+  background-color: white;
+}
+
+.task {
+  display:inline-block;
+  padding: 5px;
+  width:100px;
+  height:100px;
+  border:3px solid black;
+  background-color: white;
+}
+
+.addBtn {
+  font-size:30px;
+  color:white;
+  background-color:green;
+  margin-bottom:20px;
+  padding:20px;
+}

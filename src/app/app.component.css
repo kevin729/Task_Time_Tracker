@@ -1,0 +1,13 @@
+#topBarWrapper {
+  width:99%;
+  height:72px;
+  border: solid 5px red;
+}
+
+#sideBarWrapper {
+  display:inline-block;
+  width:150px;
+  height:500px;
+  border: solid 5px green;
+  position:absolute;
+}

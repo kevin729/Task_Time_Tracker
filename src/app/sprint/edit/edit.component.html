@@ -1,0 +1,50 @@
+<div class="sprintTableWrapper">
+
+  <div style="margin:20px; display:inline-block">
+    <div style="float:left;">
+      <button class="addBtn" (click)="addFeature()">+</button>
+    </div>
+    <div style="float:left; height:70px;">
+      <input style="min-height:70px;" placeholder="Feature" [(ngModel)]="featureTitle"/>
+    </div>
+  </div>
+
+  <table class="sprintTable">
+    <div class="scroll">
+      <tbody>
+        <div *ngFor="let feature of features">
+          <tr>
+            <td>
+              <h1>Feature</h1>
+
+              <div class="feature">
+                <h1>{{feature}}</h1>
+              </div>
+            </td>
+
+            <td>
+              <h1>To do</h1>
+
+              <div style=" display:inline-block">
+                <div style="float:left;">
+                  <button class="addBtn" (click)="addTask()">+</button>
+                </div>
+                <div style="float:left; height:70px;">
+                  <input style="min-height:70px;" placeholder="Task" [(ngModel)]="taskTitle"/>
+                </div>
+              </div>
+
+              <div class="task" *ngFor="let task of tasks">
+                <h3>{{task}}</h3>
+              </div>
+
+            <td><h1>Development</h1></td>
+            <td><h1>Review</h1></td>
+            <td><h1>Testing</h1></td>
+            <td><h1>Closed</h1></td>
+          </tr>
+        </div>
+        </tbody>
+      </div>
+    </table>
+</div>
