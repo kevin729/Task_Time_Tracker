@@ -1,4 +1,22 @@
-<div id="topBarWrapper"></div>
+<div id="topBarWrapper">
+  <form style="float:right; margin:0px;" [formGroup]="loginForm">
+    <div class="inputDiv">
+      <input id="username" style="width:150px;" [formControl]="usernameField"/>
+      <label >Username:</label>
+    </div>
+
+    <div class="inputDiv">
+      <input id="password" type="password" style="width:150px;" [formControl]="passwordField" />
+      <label >Password:</label>
+    </div>
+
+    <div class="inputDiv">
+      <input type="submit" [formControl]="registerBtn"/>
+      <input type="submit" [formControl]="loginBtn"/>
+    </div>
+  </form>
+</div>
+
 <div id="sideBarWrapper"></div>
 
 <router-outlet></router-outlet>

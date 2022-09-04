@@ -1,5 +1,5 @@
 #topBarWrapper {
-  width:99%;
+  width:1400px;
   height:72px;
   border: solid 5px red;
 }
@@ -7,7 +7,6 @@
 #sideBarWrapper {
   display:inline-block;
   width:150px;
-  height:500px;
+  height:385px;
   border: solid 5px green;
-  position:absolute;
 }

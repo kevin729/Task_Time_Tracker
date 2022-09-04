@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+
 
 
 @Component({
@@ -6,14 +8,24 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
+
+
 export class EditComponent implements OnInit {
 
   featureTitle : any;
-  features : any = [];
+  features : any = ["Task Timer"];
 
   taskTitle : any;
   tasks : any = [];
 
+
+  @ViewChild('tableWrapper')
+  tableWrapper : any;
+  table : any;
+
+  ngAfterViewInit(): void {
+   this.table = this.tableWrapper.nativeElement;
+  }
 
   constructor() {
   }
@@ -22,11 +34,11 @@ export class EditComponent implements OnInit {
   }
 
   addFeature(): void {
-    if (this.featureTitle == "" || this.featureTitle == undefined) {
-      return;
-    }
+      if (this.featureTitle == "" || this.featureTitle == undefined) {
+        return;
+      }
 
-    this.features.push(this.featureTitle);
+      this.features.push(this.featureTitle)
   }
 
   addTask(): void {
@@ -34,5 +46,21 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    this.tasks.push(this.taskTitle)}
+    this.tasks.push(this.taskTitle)
+  }
+
+  dragStart(e : any): void {
+    e.dataTransfer.setData("elementID", e.target.id)
+  }
+
+  dragOver(e : any): void {
+    e.preventDefault();
+  }
+
+  dragDrop(e : any): void {
+      const elementID = e.dataTransfer.getData("elementID")
+      const element = document.getElementById(elementID)
+
+      alert(elementID)
+  }
 }
