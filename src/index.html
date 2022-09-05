@@ -2,12 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>TaskTimeTracker</title>
+  <title>ProfessorPerson Tracker</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script>
+    window.addEventListener("load", () => {
+      $("#project").autocomplete({
+        source:function(req, res) {
+          callAjax("https://lukemind.herokuapp.com/api/get_task_titles/1", "GET", "", (response) => {
+            res(Object.keys(response))
+          })
+        }
+      })
+
+      $("#project").get(0).addEventListener("click", function() {
+        $("#project").autocomplete( "search", " " )
+      })
+    })
+
+    function callAjax(url, method, data, onsuccess) {
+      $.ajax({
+    	  contentType: "application/json; charset=utf-8",
+		    type: method,
+        url: url,
+        data: JSON.stringify(data),
+        success: onsuccess != null ? onsuccess : (msg) => {
+			    console.log(msg)
+		    },
+        error: function (msg) {
+          console.log(msg)
+			    return msg
+        }
+    })
+}
+  </script>
 </head>
 <body>
-  <app-root></app-root>
+<app-root></app-root>
+
 </body>
 </html>

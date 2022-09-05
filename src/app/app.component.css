@@ -1,12 +1,7 @@
 #topBarWrapper {
-  width:1400px;
+  width:1885px;
   height:72px;
   border: solid 5px red;
 }
 
-#sideBarWrapper {
-  display:inline-block;
-  width:150px;
-  height:385px;
-  border: solid 5px green;
-}
+

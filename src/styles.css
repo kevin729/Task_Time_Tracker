@@ -2,7 +2,14 @@ html, body {
   width:100%;
   height:100%;
   background:lightgrey;
-  overflow:hidden;
+
+}
+
+#sideBarWrapper {
+  display:inline-block;
+  width:150px;
+  height:852px;
+  border: solid 5px green;
 }
 
 .sprintTableWrapper {
@@ -12,8 +19,8 @@ html, body {
   left:165px;
   top:85px;
 
-  width:1050px;
-  height:400px;
+  width:1740px;
+  height:870px;
 
 }
 
@@ -49,9 +56,7 @@ th, td, tr {
 }
 
 .addFeature {
-  position:fixed;
-  top:400px;
-  margin:15px;
+  position:block;
   display:inline-block;
 }
 

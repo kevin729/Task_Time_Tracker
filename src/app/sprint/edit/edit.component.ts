@@ -1,6 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import $ from "jquery";
 
+import { HttpService } from '../../http.service';
+
+// function autocomplete(elementID : string) : void {
+//         $(elementID).autocomplete({
+//           source:function() {
+//
+//           }
+//         })
+// }
 
 
 @Component({
@@ -23,14 +33,19 @@ export class EditComponent implements OnInit {
   tableWrapper : any;
   table : any;
 
+  @ViewChild('projectInput')
+  projectInput : any;
+
   ngAfterViewInit(): void {
    this.table = this.tableWrapper.nativeElement;
-  }
+ }
 
-  constructor() {
+
+  constructor(private http: HttpService) {
   }
 
   ngOnInit(): void {
+    //autocomplete("#project");
   }
 
   addFeature(): void {
@@ -61,6 +76,6 @@ export class EditComponent implements OnInit {
       const elementID = e.dataTransfer.getData("elementID")
       const element = document.getElementById(elementID)
 
-      alert(elementID)
+      e.target.append(element)
   }
 }

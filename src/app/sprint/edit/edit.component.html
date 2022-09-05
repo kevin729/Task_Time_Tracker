@@ -1,3 +1,25 @@
+<div id="sideBarWrapper">
+  <div class="addFeature">
+    <div style="float:left;" >
+      <button class="addBtn" style="height:40px;" (click)="addFeature()">+</button>
+    </div>
+    <div style="float:left; height:40px;">
+      <input style="width: 100px; min-height:34px;" placeholder="Feature" [(ngModel)]="featureTitle"/>
+    </div>
+  </div>
+
+  <div class="addFeature">
+    <div style="float:left;" >
+      <button class="addBtn" style="height:40px;" (click)="addFeature()">+</button>
+    </div>
+    <div style="float:left; height:40px;">
+      <input style="width: 100px; min-height:34px;" placeholder="Sprint" [(ngModel)]="featureTitle"/>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="sprintTableWrapper" #tableWrapper>
   <table class="sprintTable">
       <tbody>
@@ -16,7 +38,7 @@
                   </div>
 
                   <div>
-                    <input id="project" style="width:50px;"/>
+                    <input id="project" style="width:50px;" #projectInput/>
                   </div>
 
                 </div>
@@ -34,7 +56,7 @@
               </div>
             </td>
 
-            <td>
+            <td (dragover)="dragOver($event)" (drop)="dragDrop($event)">
               <h1>To do</h1>
 
               <div style="margin-bottom: 100px; width:100%;">
@@ -51,19 +73,11 @@
               </div>
 
             <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Development</h1></td>
-            <td><h1>Review</h1></td>
-            <td><h1>Testing</h1></td>
-            <td><h1>Closed</h1></td>
+            <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Review</h1></td>
+            <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Testing</h1></td>
+            <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Closed</h1></td>
           </tr>
         </div>
         </tbody>
     </table>
-  <div class="addFeature">
-    <div style="float:left;" >
-      <button class="addBtn" style="height:40px;" (click)="addFeature()">+</button>
-    </div>
-    <div style="float:left; height:40px;">
-      <input style="min-height:34px;" placeholder="Feature" [(ngModel)]="featureTitle"/>
-    </div>
-  </div>
 </div>
