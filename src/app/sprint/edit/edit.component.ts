@@ -40,7 +40,7 @@ export class EditComponent implements OnInit {
 
 
   constructor(private http: HttpService) {
-    http.get("http://localhost:8080/v1/features").subscribe(response => {
+    http.get("https://tasktrackerserver.herokuapp.com/v1/features").subscribe(response => {
       this.features = response;
     })
 
@@ -60,7 +60,7 @@ export class EditComponent implements OnInit {
         return;
       }
 
-      this.http.post("http://localhost:8080/v1/features", {"title": this.featureTitle}).subscribe(response => {
+      this.http.post("https://tasktrackerserver.herokuapp.com/v1/features", {"title": this.featureTitle}).subscribe(response => {
         this.features = response;
       })
   }
@@ -70,7 +70,7 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    this.http.post("http://localhost:8080/v1/tasks", {"title":this.taskTitle, feature}).subscribe(response => {
+    this.http.post("https://tasktrackerserver.herokuapp.com/v1/tasks", {"title":this.taskTitle, feature}).subscribe(response => {
       this.features = response;
     });
   }
