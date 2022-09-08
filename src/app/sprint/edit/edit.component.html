@@ -30,7 +30,7 @@
 
 
               <div class="feature">
-                <h1>{{feature}}</h1>
+                <h1>{{feature.title}}</h1>
 
                 <div style="inline-block; float:left;">
                   <div>
@@ -38,7 +38,7 @@
                   </div>
 
                   <div>
-                    <input id="project" style="width:50px;" #projectInput/>
+                    <input id="project" style="width:50px;" #projectInput onload="autocomplete('#project' 'http://localhost:8080/v1/features')" />
                   </div>
 
                 </div>
@@ -61,15 +61,15 @@
 
               <div style="margin-bottom: 100px; width:100%;">
                 <div style="float:left;">
-                  <button class="addBtn" (click)="addTask()">+</button>
+                  <button class="addBtn" (click)="addTask(feature)">+</button>
                 </div>
                 <div style="float:left; height:70px;">
                   <input style="width:60px; min-height:34px;" placeholder="Task" [(ngModel)]="taskTitle"/>
                 </div>
               </div>
 
-              <div *ngFor="let task of tasks; let i = index" [attr.data-index]="i" id="{{f}}{{i}}" class="task" (dragstart)="dragStart($event)" draggable="true">
-                <h3>{{task}}</h3>
+              <div *ngFor="let task of feature.tasks; let i = index" [attr.data-index]="i" id="{{f}}{{i}}" class="task" (dragstart)="dragStart($event)" draggable="true">
+                <h3>{{task.title}}</h3>
               </div>
 
             <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Development</h1></td>

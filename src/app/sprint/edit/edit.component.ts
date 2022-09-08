@@ -22,12 +22,10 @@ import { HttpService } from '../../http.service';
 
 export class EditComponent implements OnInit {
 
+  features : any = [];
+
   featureTitle : any;
-  features : any = ["Task Timer"];
-
   taskTitle : any;
-  tasks : any = [];
-
 
   @ViewChild('tableWrapper')
   tableWrapper : any;
@@ -42,10 +40,19 @@ export class EditComponent implements OnInit {
 
 
   constructor(private http: HttpService) {
+    http.get("http://localhost:8080/v1/features").subscribe(response => {
+      this.features = response;
+    })
+
+
   }
 
   ngOnInit(): void {
-    //autocomplete("#project");
+
+  }
+
+  addSprint(): void {
+
   }
 
   addFeature(): void {
@@ -53,15 +60,19 @@ export class EditComponent implements OnInit {
         return;
       }
 
-      this.features.push(this.featureTitle)
+      this.http.post("http://localhost:8080/v1/features", {"title": this.featureTitle}).subscribe(response => {
+        this.features = response;
+      })
   }
 
-  addTask(): void {
+  addTask(feature : string): void {
     if (this.taskTitle == "" || this.taskTitle == undefined) {
       return;
     }
 
-    this.tasks.push(this.taskTitle)
+    this.http.post("http://localhost:8080/v1/tasks", {"title":this.taskTitle, feature}).subscribe(response => {
+      this.features = response;
+    });
   }
 
   dragStart(e : any): void {

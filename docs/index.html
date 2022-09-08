@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8">
-  <title>ProfessorPerson Tracker</title>
+  <title>Task Tracker</title>
   <base href=".">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="./assets/images/favicon.png">
@@ -12,20 +12,22 @@
 
   <script>
     window.addEventListener("load", () => {
-      $("#project").autocomplete({
-        source:function(req, res) {
-          callAjax("https://lukemind.herokuapp.com/api/get_task_titles/1", "GET", "", (response) => {
-            res(Object.keys(response))
-          })
-        }
-      })
-
-      $("#project").click(() => {
-        $("#project").autocomplete( "search", " " )
-      })
-
-
+      autocomplete("#project", "https://lukemind.herokuapp.com/api/get_task_titles/1")
     })
+
+  function autocomplete(id, path) {
+      $(id).autocomplete({
+      source:function(req, res) {
+        callAjax(path, "GET", "", (response) => {
+          res(Object.keys(response))
+        })
+      }
+    })
+
+    $(id).click(() => {
+      $(id).autocomplete( "search", " " )
+    })
+  }
 
     function callAjax(url, method, data, onsuccess) {
       $.ajax({
@@ -47,6 +49,6 @@
 <body>
 <app-root></app-root>
 
-<script src="runtime.315cf930182fca84.js" type="module"></script><script src="polyfills.6578226480437a55.js" type="module"></script><script src="main.887fdc23b7b38fdb.js" type="module"></script>
+<script src="runtime.315cf930182fca84.js" type="module"></script><script src="polyfills.6578226480437a55.js" type="module"></script><script src="main.1f2f60e0f439f178.js" type="module"></script>
 
 </body></html>

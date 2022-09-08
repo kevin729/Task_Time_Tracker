@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>ProfessorPerson Tracker</title>
+  <title>Task Tracker</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="./assets/images/favicon.png">
@@ -14,20 +14,22 @@
 
   <script>
     window.addEventListener("load", () => {
-      $("#project").autocomplete({
-        source:function(req, res) {
-          callAjax("https://lukemind.herokuapp.com/api/get_task_titles/1", "GET", "", (response) => {
-            res(Object.keys(response))
-          })
-        }
-      })
-
-      $("#project").click(() => {
-        $("#project").autocomplete( "search", " " )
-      })
-
-
+      autocomplete("#project", "https://lukemind.herokuapp.com/api/get_task_titles/1")
     })
+
+  function autocomplete(id, path) {
+      $(id).autocomplete({
+      source:function(req, res) {
+        callAjax(path, "GET", "", (response) => {
+          res(Object.keys(response))
+        })
+      }
+    })
+
+    $(id).click(() => {
+      $(id).autocomplete( "search", " " )
+    })
+  }
 
     function callAjax(url, method, data, onsuccess) {
       $.ajax({
