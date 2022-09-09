@@ -85,8 +85,12 @@ export class EditComponent implements OnInit {
 
   dragDrop(e : any): void {
       const elementID = e.dataTransfer.getData("elementID")
-      const element = document.getElementById(elementID)
+      const drag = document.getElementById(elementID)
 
-      e.target.append(element)
+      if (e.target.tagName != "TD") {
+        e.target.closest("td").append(drag)
+      } else {
+        e.target.append(drag)
+      }
   }
 }

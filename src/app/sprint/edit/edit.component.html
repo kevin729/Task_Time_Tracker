@@ -30,7 +30,7 @@
 
 
               <div class="feature">
-                <h1>{{feature.title}}</h1>
+                <h3>{{feature.title}}</h3>
 
                 <div style="inline-block; float:left;">
                   <div>
@@ -69,7 +69,11 @@
               </div>
 
               <div *ngFor="let task of feature.tasks; let i = index" [attr.data-index]="i" id="{{f}}{{i}}" class="task" (dragstart)="dragStart($event)" draggable="true">
-                <h3>{{task.title}}</h3>
+                <h4>{{task.title}}</h4>
+                <div style="height:50px">
+                  <input class="timerInput"/>
+                  <img src="assets/images/run.png" class="timerBtn"/>
+                </div>
               </div>
 
             <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Development</h1></td>

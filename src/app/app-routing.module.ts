@@ -6,7 +6,7 @@ import { SprintsComponent } from './sprint/sprints/sprints.component';
 const routes: Routes = [
   {path: 'sprint/sprints', component: SprintsComponent},
   {path: 'sprint/edit/:id', component: EditComponent},
-  {path: '', redirectTo:'sprint/edit/1', pathMatch:'full'}
+  {path: '', component: EditComponent}
 ];
 
 @NgModule({
