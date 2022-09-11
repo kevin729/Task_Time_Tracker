@@ -100,7 +100,9 @@ form label, form input {
   width:50px;
   height:50px;
   float:right;
+}
 
+.timerBtnMoving {
   animation:rotate 5s infinite linear;
 }
 

@@ -1,17 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import $ from "jquery";
-
 import { HttpService } from '../../http.service';
 
-// function autocomplete(elementID : string) : void {
-//         $(elementID).autocomplete({
-//           source:function() {
-//
-//           }
-//         })
-// }
-
+declare function autocomplete(id : string, path : string): void
+declare function subscribe(callback: any, id: string): void
+declare function unsubscribe(id: string): void
 
 @Component({
   selector: 'app-edit',
@@ -27,24 +21,16 @@ export class EditComponent implements OnInit {
   featureTitle : any;
   taskTitle : any;
 
-  @ViewChild('tableWrapper')
-  tableWrapper : any;
-  table : any;
-
-  @ViewChild('projectInput')
-  projectInput : any;
-
   ngAfterViewInit(): void {
-   this.table = this.tableWrapper.nativeElement;
+
  }
 
 
   constructor(private http: HttpService) {
-    http.get("https://tasktrackerserver.herokuapp.com/v1/features").subscribe(response => {
+    http.get("http://localhost:8080/v1/features").subscribe(response => {
       this.features = response;
+      setTimeout(() => {autocomplete(".project", "https://lukemind.herokuapp.com/api/get_task_titles/1")}, 1000)
     })
-
-
   }
 
   ngOnInit(): void {
@@ -60,7 +46,7 @@ export class EditComponent implements OnInit {
         return;
       }
 
-      this.http.post("https://tasktrackerserver.herokuapp.com/v1/features", {"title": this.featureTitle}).subscribe(response => {
+      this.http.post("http://localhost:8080/v1/tasks", {"title": this.featureTitle}).subscribe(response => {
         this.features = response;
       })
   }
@@ -70,9 +56,24 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    this.http.post("https://tasktrackerserver.herokuapp.com/v1/tasks", {"title":this.taskTitle, feature}).subscribe(response => {
+    this.http.post("http://localhost:8080/v1/tasks", {"title":this.taskTitle, feature}).subscribe(response => {
       this.features = response;
     });
+  }
+
+  trackTask(e: any): void {
+    const time = <HTMLInputElement>$(e.target.parentElement).find(".timerInput").get(0)
+
+    if (e.target.classList.contains("timerBtnMoving")) {
+      e.target.classList.remove("timerBtnMoving")
+      unsubscribe(time.id)
+    } else {
+      e.target.classList.add("timerBtnMoving")
+      this.http.post("http://localhost:8080/v1/track", {}).subscribe()
+      subscribe((message: string) => {time.value = message}, time.id)
+    }
+
+
   }
 
   dragStart(e : any): void {

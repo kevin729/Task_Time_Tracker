@@ -34,22 +34,22 @@
 
                 <div style="inline-block; float:left;">
                   <div>
-                    <label for="project">Project</label>
+                    <label for="project{{f}}">Project</label>
                   </div>
 
                   <div>
-                    <input id="project" style="width:50px;" #projectInput onload="autocomplete('#project' 'http://localhost:8080/v1/features')" />
+                    <input id="project{{f}}" class="project" style="width:50px;"  />
                   </div>
 
                 </div>
 
                 <div style="inline-block; float:right;">
                   <div>
-                    <label for="estimate">Estimate</label>
+                    <label for="estimate{{f}}">Estimate</label>
                   </div>
 
                   <div>
-                    <input id="estimate" style="width:50px;"/>
+                    <input id="estimate{{f}}" style="width:50px;"/>
                   </div>
                 </div>
 
@@ -68,14 +68,14 @@
                 </div>
               </div>
 
-              <div *ngFor="let task of feature.tasks; let i = index" [attr.data-index]="i" id="{{f}}{{i}}" class="task" (dragstart)="dragStart($event)" draggable="true">
+              <div *ngFor="let task of feature.tasks; let t = index" [attr.data-index]="t" id="{{f}}{{t}}" class="task" (dragstart)="dragStart($event)" draggable="true">
                 <h4>{{task.title}}</h4>
                 <div style="height:50px">
-                  <input class="timerInput"/>
-                  <img src="assets/images/run.png" class="timerBtn"/>
+                  <input id="timerInput{{f}}{{t}}" class="timerInput"/>
+                  <img src="assets/images/run.png" class="timerBtn" (click)="trackTask($event)"/>
                 </div>
               </div>
-
+            </td>
             <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Development</h1></td>
             <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Review</h1></td>
             <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Testing</h1></td>

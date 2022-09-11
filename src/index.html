@@ -12,24 +12,15 @@
   <script src="//code.jquery.com/jquery-1.12.4.js"></script>
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.0/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+  <script src="./assets/js/socket.js"></script>
+
   <script>
-    window.addEventListener("load", () => {
-      autocomplete("#project", "https://lukemind.herokuapp.com/api/get_task_titles/1")
-    })
-
-  function autocomplete(id, path) {
-      $(id).autocomplete({
-      source:function(req, res) {
-        callAjax(path, "GET", "", (response) => {
-          res(Object.keys(response))
-        })
-      }
-    })
-
-    $(id).click(() => {
-      $(id).autocomplete( "search", " " )
-    })
-  }
+<!--    window.addEventListener("load", () => {-->
+<!--      autocomplete(".project", "https://lukemind.herokuapp.com/api/get_task_titles/1")-->
+<!--    })-->
 
     function callAjax(url, method, data, onsuccess) {
       $.ajax({
@@ -44,8 +35,22 @@
           console.log(msg)
 			    return msg
         }
-    })
-}
+      })
+    }
+
+    function autocomplete(id, path) {
+        $(id).autocomplete({
+        source:function(req, res) {
+          callAjax(path, "GET", "", (response) => {
+            res(Object.keys(response))
+          })
+        }
+      })
+
+      $(id).click(() => {
+        $(id).autocomplete( "search", " " )
+      })
+    }
   </script>
 </head>
 <body>
