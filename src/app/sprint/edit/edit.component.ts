@@ -27,7 +27,7 @@ export class EditComponent implements OnInit {
 
 
   constructor(private http: HttpService) {
-    http.get("http://localhost:8080/v1/features").subscribe(response => {
+    http.get("https://tasktrackerserver.herokuapp.com/v1/features").subscribe(response => {
       this.features = response;
       setTimeout(() => {autocomplete(".project", "https://lukemind.herokuapp.com/api/get_task_titles/1")}, 1000)
     })
@@ -46,7 +46,7 @@ export class EditComponent implements OnInit {
         return;
       }
 
-      this.http.post("http://localhost:8080/v1/tasks", {"title": this.featureTitle}).subscribe(response => {
+      this.http.post("https://tasktrackerserver.herokuapp.com/v1/tasks", {"title": this.featureTitle}).subscribe(response => {
         this.features = response;
       })
   }
@@ -56,7 +56,7 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    this.http.post("http://localhost:8080/v1/tasks", {"title":this.taskTitle, feature}).subscribe(response => {
+    this.http.post("https://tasktrackerserver.herokuapp.com/v1/tasks", {"title":this.taskTitle, feature}).subscribe(response => {
       this.features = response;
     });
   }
@@ -69,7 +69,7 @@ export class EditComponent implements OnInit {
       unsubscribe(time.id)
     } else {
       e.target.classList.add("timerBtnMoving")
-      this.http.post("http://localhost:8080/v1/track", {}).subscribe()
+      this.http.post("https://tasktrackerserver.herokuapp.com/v1/track", {}).subscribe()
       subscribe((message: string) => {time.value = message}, time.id)
     }
 
