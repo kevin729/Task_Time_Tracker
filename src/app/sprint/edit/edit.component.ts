@@ -70,7 +70,7 @@ export class EditComponent implements OnInit {
     } else {
       e.target.classList.add("timerBtnMoving")
 
-      this.http.post("http://localhost:8080/v1/track", {}).subscribe()
+      this.http.post("http://tasktrackerserver.herokuapp.com/v1/track", {}).subscribe()
       connect((message: string) => {time.value = message}, time.id)
     }
   }
