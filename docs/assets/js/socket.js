@@ -1,10 +1,19 @@
-const socket = new SockJS('https://tasktrackerserver.herokuapp.com/time')
-var stompClient = Stomp.over(socket)
+var stompClient
 
-stompClient.connect({}, function (frame) {}, function(message) {
+function connect(callback, id) {
+  if (stompClient == null || !stompClient.connected) {
+    const socket = new SockJS('https://tasktrackerserver.herokuapp.com/time')
+    stompClient = Stomp.over(socket)
 
-})
-
+    stompClient.connect({}, function (frame) {
+      subscribe(callback, id)
+    }, function(message) {
+      connect(callback, id)
+    })
+  } else {
+    subscribe(callback, id)
+  }
+}
 
 function subscribe(callback, id) {
     stompClient.subscribe('/topic/timer', (message) => {
