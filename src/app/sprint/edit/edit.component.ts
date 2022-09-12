@@ -4,7 +4,7 @@ import $ from "jquery";
 import { HttpService } from '../../http.service';
 
 declare function autocomplete(id : string, path : string): void
-declare function subscribe(callback: any, id: string): void
+declare function connect(callback: any, id: string): void
 declare function unsubscribe(id: string): void
 
 @Component({
@@ -69,11 +69,10 @@ export class EditComponent implements OnInit {
       unsubscribe(time.id)
     } else {
       e.target.classList.add("timerBtnMoving")
-      this.http.post("https://tasktrackerserver.herokuapp.com/v1/track", {}).subscribe()
-      subscribe((message: string) => {time.value = message}, time.id)
+
+      this.http.post("http://localhost:8080/v1/track", {}).subscribe()
+      connect((message: string) => {time.value = message}, time.id)
     }
-
-
   }
 
   dragStart(e : any): void {
