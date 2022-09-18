@@ -1,8 +1,6 @@
 <div id="sideBarWrapper">
   <div class="addFeature">
-
     <button class="addBtn" style="height:40px;" (click)="addFeature()">+</button>
-
     <div style="float:right; height:40px;">
       <input style="width: 100px; min-height:34px;" placeholder="Feature" [(ngModel)]="featureTitle"/>
     </div>
@@ -10,10 +8,10 @@
 
   <div class="addFeature">
     <div style="float:left;" >
-      <button class="addBtn" style="height:40px;" (click)="addFeature()">+</button>
+      <button class="addBtn" style="height:40px;" (click)="addSprint()">+</button>
     </div>
     <div style="float:left; height:40px;">
-      <input style="width: 100px; min-height:34px;" placeholder="Sprint" [(ngModel)]="featureTitle"/>
+      <input style="width: 100px; min-height:34px;" placeholder="Sprint" [(ngModel)]="sprintTitle"/>
     </div>
   </div>
 </div>
@@ -27,7 +25,6 @@
           <tr>
             <td>
               <h1>Feature</h1>
-
 
               <div class="feature">
                 <h3>{{feature.title}}</h3>
@@ -67,7 +64,7 @@
                 </div>
               </div>
 
-              <div #tasks *ngFor="let task of feature.tasks; let t = index" [attr.data-index]="t" id="{{task.id}}" class="task" (dragstart)="dragStart($event)" draggable="true">
+              <div #tasks *ngFor="let task of feature.tasks; let t = index" [attr.data-index]="t" id="{{task.id}}" class="task" (dragstart)="dragStart($event, task)" draggable="true">
                 <h4>{{task.title}}</h4>
                 <div style="height:50px">
                   <input id="timerInput{{f}}{{t}}" class="timerInput"/>

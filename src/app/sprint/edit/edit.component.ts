@@ -19,6 +19,7 @@ export class EditComponent implements OnInit {
 
   features : any = [];
 
+  sprintTitle : any;
   featureTitle : any;
   taskTitle : any;
 
@@ -47,14 +48,15 @@ export class EditComponent implements OnInit {
     this.tasks.changes.subscribe(t => {
       t.toArray().forEach((taskRef: ElementRef<HTMLDivElement>) => {
         const taskElement: HTMLDivElement = taskRef.nativeElement
-        let status: string = "Test";
+        let status: string = "";
 
-        this.features.every((feature: any) => {
+        this.features.forEach((feature: any) => {
           if (feature.tasks == null) {
             return
           }
 
           feature.tasks.every((task: any) => {
+
             if (taskElement.id == task.id) {
               status = task.status
             }
@@ -100,7 +102,7 @@ export class EditComponent implements OnInit {
   }
 
   addSprint(): void {
-
+    alert("Added sprint")
   }
 
   addFeature(): void {
@@ -136,8 +138,9 @@ export class EditComponent implements OnInit {
     }
   }
 
-  dragStart(e : any): void {
-    e.dataTransfer.setData("elementID", e.target.id)
+  dragStart(e: any, task: any): void {
+    console.log(task)
+    e.dataTransfer.setData("task", JSON.stringify(task))
   }
 
   dragOver(e : any): void {
@@ -145,8 +148,8 @@ export class EditComponent implements OnInit {
   }
 
   dragDrop(e : any, feature: any): void {
-      const elementID = e.dataTransfer.getData("elementID")
-      const drag = document.getElementById(elementID)
+      const task = JSON.parse(e.dataTransfer.getData("task"))
+      const drag = document.getElementById(task.id)
 
       if (e.target.tagName != "TD") {
         e.target.closest("td").append(drag)
@@ -154,6 +157,9 @@ export class EditComponent implements OnInit {
         e.target.append(drag)
       }
 
-      this.http.put("http://localhost:8080/v1/tasks", {"id":elementID, "status":e.target.classList[0], feature}).subscribe()
+      task.status = e.target.classList[0]
+      task.feature = feature
+
+      this.http.put("http://localhost:8080/v1/tasks", task).subscribe()
   }
 }
