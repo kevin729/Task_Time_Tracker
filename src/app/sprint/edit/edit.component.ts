@@ -26,59 +26,60 @@ export class EditComponent implements OnInit {
   @ViewChildren("projectInput")
   projectInput!: QueryList<ElementRef>
 
-  @ViewChild("toDo")
-  toDo!: ElementRef
+  @ViewChildren("toDo")
+  toDo!: QueryList<ElementRef>
 
-  @ViewChild("development")
-  development!: ElementRef
+  @ViewChildren("development")
+  development!: QueryList<ElementRef>
 
-  @ViewChild("review")
-  review!: ElementRef
+  @ViewChildren("review")
+  review!: QueryList<ElementRef>
 
-  @ViewChild("testing")
-  testing!: ElementRef
+  @ViewChildren("testing")
+  testing!: QueryList<ElementRef>
 
-  @ViewChild("closed")
-  closed!: ElementRef
+  @ViewChildren("closed")
+  closed!: QueryList<ElementRef>
 
   @ViewChildren("tasks")
   tasks!: QueryList<ElementRef>
 
   ngAfterViewInit(): void {
-    this.tasks.changes.subscribe(t => {
-      t.toArray().forEach((taskRef: ElementRef<HTMLDivElement>) => {
-        const taskElement: HTMLDivElement = taskRef.nativeElement
-        let status: string = "";
+    this.http.get("http://localhost:8080/v1/features").subscribe(response => {
+      this.features = response;
+      connect()
 
-        this.features.forEach((feature: any) => {
-          if (feature.tasks == null) {
-            return
+      this.features.forEach((feature: any, f: number) => {
+        feature.tasks.forEach((task: any) => {
+
+          switch (task.status) {
+            default:
+              this.toDo.changes.subscribe(list => {
+                list.get(f).nativeElement.append($("#"+task.id).get(0))
+              })
+              break;
+            case "Development":
+              this.development.changes.subscribe(list => {
+                list.get(f).nativeElement.append($("#"+task.id).get(0))
+              })
+              break;
+            case "Review":
+              this.review.changes.subscribe(list => {
+                list.get(f).nativeElement.append($("#"+task.id).get(0))
+              })
+              break;
+            case "Testing":
+              this.testing.changes.subscribe(list => {
+                list.get(f).nativeElement.append($("#"+task.id).get(0))
+              })
+              break;
+            case "Closed":
+              this.closed.changes.subscribe(list => {
+                list.get(f).nativeElement.append($("#"+task.id).get(0))
+              })
+              break;
           }
-
-          feature.tasks.every((task: any) => {
-
-            if (taskElement.id == task.id) {
-              status = task.status
-            }
-          })
         })
-
-        switch (status) {
-          default:
-            this.toDo.nativeElement.append(taskElement)
-            break;
-          case "Development":
-            this.development.nativeElement.append(taskElement)
-            break;
-          case "Review":
-            this.review.nativeElement.append(taskElement)
-            break;
-          case "Testing":
-            this.testing.nativeElement.append(taskElement)
-            break;
-          case "Closed":
-            this.closed.nativeElement.append(taskElement)
-        }
       })
     })
 
@@ -91,10 +92,7 @@ export class EditComponent implements OnInit {
 
 
   constructor(private http: HttpService) {
-    http.get("http://localhost:8080/v1/features").subscribe(response => {
-      this.features = response;
-      connect()
-    })
+
   }
 
   ngOnInit(): void {
