@@ -1,17 +1,15 @@
 var stompClient
 
-function connect(callback, id) {
+function connect() {
   if (stompClient == null || !stompClient.connected) {
     const socket = new SockJS('http://localhost:8080/time')
     stompClient = Stomp.over(socket)
 
     stompClient.connect({}, function (frame) {
-      subscribe(callback, id)
+
     }, function(message) {
-      connect(callback, id)
+      connect()
     })
-  } else {
-    subscribe(callback, id)
   }
 }
 
