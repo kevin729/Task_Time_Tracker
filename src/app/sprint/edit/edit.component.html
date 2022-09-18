@@ -1,8 +1,6 @@
 <div id="sideBarWrapper">
   <div class="addFeature">
-
     <button class="addBtn" style="height:40px;" (click)="addFeature()">+</button>
-
     <div style="float:right; height:40px;">
       <input style="width: 100px; min-height:34px;" placeholder="Feature" [(ngModel)]="featureTitle"/>
     </div>
@@ -10,10 +8,10 @@
 
   <div class="addFeature">
     <div style="float:left;" >
-      <button class="addBtn" style="height:40px;" (click)="addFeature()">+</button>
+      <button class="addBtn" style="height:40px;" (click)="addSprint()">+</button>
     </div>
     <div style="float:left; height:40px;">
-      <input style="width: 100px; min-height:34px;" placeholder="Sprint" [(ngModel)]="featureTitle"/>
+      <input style="width: 100px; min-height:34px;" placeholder="Sprint" [(ngModel)]="sprintTitle"/>
     </div>
   </div>
 </div>
@@ -28,7 +26,6 @@
             <td>
               <h1>Feature</h1>
 
-
               <div class="feature">
                 <h3>{{feature.title}}</h3>
 
@@ -38,9 +35,8 @@
                   </div>
 
                   <div>
-                    <input id="project{{f}}" class="project" style="width:50px;"  />
+                    <input #projectInput id="project{{f}}" class="project" style="width:50px;"  />
                   </div>
-
                 </div>
 
                 <div style="inline-block; float:right;">
@@ -56,7 +52,7 @@
               </div>
             </td>
 
-            <td (dragover)="dragOver($event)" (drop)="dragDrop($event)">
+            <td #toDo class="ToDo" (dragover)="dragOver($event)" (drop)="dragDrop($event, feature)">
               <h1>To do</h1>
 
               <div style="margin-bottom: 100px; width:100%;">
@@ -68,7 +64,7 @@
                 </div>
               </div>
 
-              <div *ngFor="let task of feature.tasks; let t = index" [attr.data-index]="t" id="{{f}}{{t}}" class="task" (dragstart)="dragStart($event)" draggable="true">
+              <div #tasks *ngFor="let task of feature.tasks; let t = index" [attr.data-index]="t" id="{{task.id}}" class="task" (dragstart)="dragStart($event, task)" draggable="true">
                 <h4>{{task.title}}</h4>
                 <div style="height:50px">
                   <input id="timerInput{{f}}{{t}}" class="timerInput"/>
@@ -76,10 +72,10 @@
                 </div>
               </div>
             </td>
-            <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Development</h1></td>
-            <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Review</h1></td>
-            <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Testing</h1></td>
-            <td (dragover)="dragOver($event)" (drop)="dragDrop($event)"><h1>Closed</h1></td>
+            <td #development class="Development" (dragover)="dragOver($event)" (drop)="dragDrop($event, feature)"><h1>Development</h1></td>
+            <td #review class="Review" (dragover)="dragOver($event)" (drop)="dragDrop($event, feature)"><h1>Review</h1></td>
+            <td #testing class="Testing" (dragover)="dragOver($event)" (drop)="dragDrop($event, feature)"><h1>Testing</h1></td>
+            <td #closed class="Closed" (dragover)="dragOver($event)" (drop)="dragDrop($event, feature)"><h1>Closed</h1></td>
           </tr>
         </div>
         </tbody>
