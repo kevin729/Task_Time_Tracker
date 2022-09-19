@@ -151,13 +151,14 @@ export class EditComponent implements OnInit {
 
       if (e.target.tagName != "TD") {
         e.target.closest("td").append(drag)
+        task.status = e.target.closest("td").classList[0]
       } else {
         e.target.append(drag)
+        task.status = e.target.classList[0]
       }
 
-      task.status = e.target.classList[0]
       task.feature = feature
-
       this.http.put("http://localhost:8080/v1/tasks", task).subscribe()
+
   }
 }
