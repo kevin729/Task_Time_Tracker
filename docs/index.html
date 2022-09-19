@@ -10,24 +10,15 @@
   <script src="//code.jquery.com/jquery-1.12.4.js"></script>
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.0/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+  <script src="./assets/js/socket.js"></script>
+
   <script>
-    window.addEventListener("load", () => {
-      autocomplete("#project", "https://lukemind.herokuapp.com/api/get_task_titles/1")
-    })
-
-  function autocomplete(id, path) {
-      $(id).autocomplete({
-      source:function(req, res) {
-        callAjax(path, "GET", "", (response) => {
-          res(Object.keys(response))
-        })
-      }
-    })
-
-    $(id).click(() => {
-      $(id).autocomplete( "search", " " )
-    })
-  }
+<!--    window.addEventListener("load", () => {-->
+<!--      autocomplete(".project", "https://lukemind.herokuapp.com/api/get_task_titles/1")-->
+<!--    })-->
 
     function callAjax(url, method, data, onsuccess) {
       $.ajax({
@@ -42,13 +33,27 @@
           console.log(msg)
 			    return msg
         }
-    })
-}
+      })
+    }
+
+    function autocomplete(id, path) {
+        $(id).autocomplete({
+        source:function(req, res) {
+          callAjax(path, "GET", "", (response) => {
+            res(Object.keys(response))
+          })
+        }
+      })
+
+      $(id).click(() => {
+        $(id).autocomplete( "search", " " )
+      })
+    }
   </script>
-<style>html,body{width:100%;height:100%;background:lightgrey}</style><link rel="stylesheet" href="styles.fce801a1cac9f784.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.fce801a1cac9f784.css"></noscript></head>
+<style>html,body{width:100%;height:100%;background:lightgrey}</style><link rel="stylesheet" href="styles.e2e7717790952be2.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.e2e7717790952be2.css"></noscript></head>
 <body>
 <app-root></app-root>
 
-<script src="runtime.315cf930182fca84.js" type="module"></script><script src="polyfills.6578226480437a55.js" type="module"></script><script src="main.ba5731fcf9f3888e.js" type="module"></script>
+<script src="runtime.6c1818680ec3ca74.js" type="module"></script><script src="polyfills.6578226480437a55.js" type="module"></script><script src="main.91ef0b50806386db.js" type="module"></script>
 
 </body></html>
