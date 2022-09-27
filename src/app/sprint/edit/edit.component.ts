@@ -133,7 +133,7 @@ export class EditComponent implements OnInit {
       e.target.classList.add("timerBtnMoving")
 
       const task = e.target.closest(".task")
-      this.http.post("https://tasktrackerserver.herokuapp.com/v1/tasks/"+task.id, {}).subscribe()
+      this.http.post("https://tasktrackerserver.herokuapp.com/v1/track/"+task.id, {}).subscribe()
       subscribe((message: any) => {time.value = message.text}, time.id)
     }
   }
