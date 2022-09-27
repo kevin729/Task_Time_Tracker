@@ -94,6 +94,7 @@ form label, form input {
   position:relative;
   top:50%;
   transform:translate(0, -50%);
+  width:60px;
 }
 
 .timerBtn {
