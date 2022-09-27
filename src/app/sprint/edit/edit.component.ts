@@ -131,13 +131,14 @@ export class EditComponent implements OnInit {
       unsubscribe(time.id)
     } else {
       e.target.classList.add("timerBtnMoving")
-      this.http.post("http://localhost:8080/v1/track", {}).subscribe()
-      subscribe((message: string) => {time.value = message}, time.id)
+
+      const task = e.target.closest(".task")
+      this.http.post("http://localhost:8080/v1/track/"+task.id, {}).subscribe()
+      subscribe((message: any) => {time.value = message.text}, time.id)
     }
   }
 
   dragStart(e: any, task: any): void {
-    console.log(task)
     e.dataTransfer.setData("task", JSON.stringify(task))
   }
 
