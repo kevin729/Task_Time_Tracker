@@ -67,7 +67,7 @@
               <div #tasks *ngFor="let task of feature.tasks; let t = index" [attr.data-index]="t" id="{{task.id}}" class="task" (dragstart)="dragStart($event, task)" draggable="true">
                 <h4>{{task.title}}</h4>
                 <div style="height:50px">
-                  <input id="timerInput{{f}}{{t}}" class="timerInput"/>
+                  <input id="timerInput{{f}}{{t}}" class="timerInput" value="{{task.time}}"/>
                   <img src="assets/images/run.png" class="timerBtn" (click)="trackTask($event)"/>
                 </div>
               </div>
