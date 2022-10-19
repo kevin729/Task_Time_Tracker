@@ -125,16 +125,15 @@ export class EditComponent implements OnInit {
 
   trackTask(e: any): void {
     const time = <HTMLInputElement>$(e.target.parentElement).find(".timerInput").get(0)
-
+    const task = e.target.closest(".task")
     if (e.target.classList.contains("timerBtnMoving")) {
       e.target.classList.remove("timerBtnMoving")
-      unsubscribe(time.id)
+      this.http.post("http://localhost:8080/v1/unTrack/"+task.id, {}).subscribe()
+      unsubscribe(task.id)
     } else {
       e.target.classList.add("timerBtnMoving")
-
-      const task = e.target.closest(".task")
       this.http.post("http://localhost:8080/v1/track/"+task.id, {}).subscribe()
-      subscribe((message: any) => {time.value = message.text}, time.id)
+      subscribe((message: any) => {time.value = message.text}, task.id)
     }
   }
 
