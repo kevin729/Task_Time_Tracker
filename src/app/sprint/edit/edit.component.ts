@@ -128,7 +128,7 @@ export class EditComponent implements OnInit {
     const task = e.target.closest(".task")
     if (e.target.classList.contains("timerBtnMoving")) {
       e.target.classList.remove("timerBtnMoving")
-      this.http.post("http://localhost:8080/v1/unTrack/"+task.id, {}).subscribe()
+      this.http.post("https://tasktrackerserver.herokuapp.com/v1/unTrack/"+task.id, {}).subscribe()
       unsubscribe(task.id)
     } else {
       e.target.classList.add("timerBtnMoving")
