@@ -123,6 +123,12 @@ export class EditComponent implements OnInit {
     });
   }
 
+  deleteTask(id : number): void {
+    this.http.delete("http://localhost:8080/v1/tasks/"+id).subscribe(response => {
+      this.features = response;
+    })
+  }
+
   trackTask(e: any): void {
     const time = <HTMLInputElement>$(e.target.parentElement).find(".timerInput").get(0)
     const task = e.target.closest(".task")

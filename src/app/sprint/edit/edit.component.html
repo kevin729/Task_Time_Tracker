@@ -70,6 +70,9 @@
                   <input id="timerInput{{f}}{{t}}" class="timerInput" value="{{task.time}}"/>
                   <img src="assets/images/run.png" class="timerBtn" (click)="trackTask($event)"/>
                 </div>
+                <div style="float:right">
+                  <a style="font-weight:800;" (click)="deleteTask(task.id)">X</a>
+                </div>
               </div>
             </td>
             <td #development class="Development" (dragover)="dragOver($event)" (drop)="dragDrop($event, feature)"><h1>Development</h1></td>
