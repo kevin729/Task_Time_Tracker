@@ -19,9 +19,9 @@ export class EditComponent implements OnInit {
 
   features : any = [];
 
-  sprintTitle : any;
-  featureTitle : any;
-  taskTitle : any;
+  sprintTitle? : string;
+  featureTitle? : string;
+  taskTitle? : string;
 
   @ViewChildren("projectInput")
   projectInput!: QueryList<ElementRef>
@@ -121,6 +121,12 @@ export class EditComponent implements OnInit {
     this.http.post("https://tasktrackerserver.herokuapp.com/v1/tasks", {"title":this.taskTitle, feature}).subscribe(response => {
       this.features = response;
     });
+  }
+
+  deleteFeature(id: number): void {
+    this.http.delete("http://localhost:8080/v1/features/" + id).subscribe(response => {
+      this.features = response;
+    })
   }
 
   deleteTask(id : number): void {
