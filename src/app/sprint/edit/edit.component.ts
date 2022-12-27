@@ -124,7 +124,7 @@ export class EditComponent implements OnInit {
   }
 
   deleteTask(id : number): void {
-    this.http.delete("http://localhost:8080/v1/tasks/"+id).subscribe(response => {
+    this.http.delete("https://tasktrackerserver.herokuapp.com/v1/tasks/"+id).subscribe(response => {
       this.features = response;
     })
   }
