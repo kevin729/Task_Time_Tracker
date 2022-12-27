@@ -27,7 +27,15 @@
               <h1>Feature</h1>
 
               <div class="feature">
-                <h3>{{feature.title}}</h3>
+                <h3 style="width:100px;">{{feature.title}}</h3>
+
+                <div>
+                  <a style="font-weight:800;" (click)="deleteFeature(feature.id)">X</a>
+                </div>
+
+
+
+
 
                 <div style="inline-block; float:left;">
                   <div>
@@ -50,6 +58,7 @@
                 </div>
 
               </div>
+
             </td>
 
             <td #toDo class="ToDo" (dragover)="dragOver($event)" (drop)="dragDrop($event, feature)">
