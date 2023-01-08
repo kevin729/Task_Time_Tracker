@@ -4,7 +4,7 @@ import $ from "jquery";
 import { HttpService } from '../../http.service';
 
 declare function autocomplete(id : string, path : string): void
-declare function connect(): void
+declare function connect(callback : any): void
 declare function subscribe(callback:any, id:string): void
 declare function unsubscribe(id: string): void
 
@@ -47,38 +47,48 @@ export class EditComponent implements OnInit {
   ngAfterViewInit(): void {
     this.http.get("https://tasktrackerserver.herokuapp.com/v1/features").subscribe(response => {
       this.features = response;
-      connect()
+      connect((stompClient : any) => {
+        this.features.forEach((feature: any, f: number) => {
+          feature.tasks.forEach((task: any) => {
+            const taskDiv = <HTMLDivElement>$("#"+task.id).get(0)
+            if (task.tracking && taskDiv != undefined) {
 
-      this.features.forEach((feature: any, f: number) => {
-        feature.tasks.forEach((task: any) => {
+              if (taskDiv.classList.contains("timerBtnMoving")) {
+                  $(taskDiv).find(".timerBtn").get(0)?.classList.remove("timerBtnMoving")
+              } else {
+                  $(taskDiv).find(".timerBtn").get(0)?.classList.add("timerBtnMoving")
+              }
+              subscribe((message : any) => $("#"+task.id).find(".timerInput").val(message.text), task.id)
+            }
 
-          switch (task.status) {
-            default:
-              this.toDo.changes.subscribe(list => {
-                list.get(f).nativeElement.append($("#"+task.id).get(0))
-              })
-              break;
-            case "Development":
-              this.development.changes.subscribe(list => {
-                list.get(f).nativeElement.append($("#"+task.id).get(0))
-              })
-              break;
-            case "Review":
-              this.review.changes.subscribe(list => {
-                list.get(f).nativeElement.append($("#"+task.id).get(0))
-              })
-              break;
-            case "Testing":
-              this.testing.changes.subscribe(list => {
-                list.get(f).nativeElement.append($("#"+task.id).get(0))
-              })
-              break;
-            case "Closed":
-              this.closed.changes.subscribe(list => {
-                list.get(f).nativeElement.append($("#"+task.id).get(0))
-              })
-              break;
-          }
+            switch (task.status) {
+              default:
+                this.toDo.changes.subscribe(list => {
+                  list.get(f).nativeElement.append($("#"+task.id).get(0))
+                })
+                break;
+              case "Development":
+                this.development.changes.subscribe(list => {
+                  list.get(f).nativeElement.append($("#"+task.id).get(0))
+                })
+                break;
+              case "Review":
+                this.review.changes.subscribe(list => {
+                  list.get(f).nativeElement.append($("#"+task.id).get(0))
+                })
+                break;
+              case "Testing":
+                this.testing.changes.subscribe(list => {
+                  list.get(f).nativeElement.append($("#"+task.id).get(0))
+                })
+                break;
+              case "Closed":
+                this.closed.changes.subscribe(list => {
+                  list.get(f).nativeElement.append($("#"+task.id).get(0))
+                })
+                break;
+            }
+          })
         })
       })
     })
