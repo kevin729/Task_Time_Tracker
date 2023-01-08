@@ -1,12 +1,12 @@
 var stompClient
 
-function connect() {
+function connect(callback) {
   if (stompClient == null || !stompClient.connected) {
     const socket = new SockJS('http://localhost:8080/time')
     stompClient = Stomp.over(socket)
 
     stompClient.connect({}, function (frame) {
-
+      callback(stompClient)
     }, function(message) {
       connect()
     })
@@ -14,9 +14,10 @@ function connect() {
 }
 
 function subscribe(callback, id) {
+
     stompClient.subscribe('/topic/timer', (message) => {
       const msg = JSON.parse(message.body)
-      console.log(id)
+
       if (msg.to == id) {
         callback(msg)
       }
